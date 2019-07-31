@@ -3,6 +3,7 @@ RUN apk add --no-cache make
 # Install only dependencies
 WORKDIR /app
 COPY project.clj /app/
+COPY qemu-arm-static /usr/bin
 COPY resources/puppetlabs/puppetdb/bootstrap.cfg \
      /app/resources/puppetlabs/puppetdb/bootstrap.cfg
 RUN lein with-profile uberjar deps
@@ -29,7 +30,6 @@ ENV PUPPETDB_POSTGRES_HOSTNAME="postgres"
 ENV PUPPETDB_POSTGRES_PORT="5432"
 ENV PUPPETDB_DATABASE_CONNECTION="//${PUPPETDB_POSTGRES_HOSTNAME}:${PUPPETDB_POSTGRES_PORT}/puppetdb"
 ENV PUPPETDB_USER=puppetdb
-ENV PUPPETDB_PASSWORD=puppetdb
 ENV PUPPETDB_NODE_TTL=7d
 ENV PUPPETDB_NODE_PURGE_TTL=14d
 ENV PUPPETDB_REPORT_TTL=14d
